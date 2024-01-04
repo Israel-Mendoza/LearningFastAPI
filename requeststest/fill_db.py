@@ -1,4 +1,5 @@
-import requests
+import asyncio
+import httpx
 from random import choice
 
 """Using two end-points to populate the API's database with 10 posts and 3 comments per post."""
@@ -42,7 +43,14 @@ comments: list[dict[str, str]] = [
 ]
 
 
-for i in range(10):
-    requests.post(post_url, json=choice(posts))
-    for j in range(3):
-        requests.post(comment_url, json={**choice(comments), "post_id": i})
+async def main() -> None:
+    for i in range(10):
+        async with httpx.AsyncClient() as client:
+            await client.post(post_url, json=choice(posts))
+            for j in range(3):
+                response = await client.post(comment_url, json={**choice(comments), "post_id": i})
+                print(response.json())
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
