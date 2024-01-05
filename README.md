@@ -13,6 +13,6 @@ But you can use these scripts as well in case you're curious about how to use Py
 
 > Example:
 >
-> Run ```python requeststest/get_all_posts.py``` to see all posts in the dabase printed in the standard output.
+> Run ```python requeststest/get_all_posts.py``` to see all posts in the database printed in the standard output.
 
 **_These scripts are not part of the project._**
