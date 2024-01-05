@@ -1,3 +1,5 @@
 fastapi[all]~=0.108.0
 requests~=2.31.0
 pytest
+sqlalchemy
+databases[aiosqlite]

@@ -1,10 +1,11 @@
+import os
 import pytest
 from typing import AsyncGenerator, Generator
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
-
+os.environ["ENV_STATE"] = "test"
+from socialmediaapi.database import database
 from socialmediaapi.main import app
-from socialmediaapi.routers.post import comment_db, post_db
 
 
 @pytest.fixture(scope="session")
@@ -19,9 +20,9 @@ def client() -> Generator:
 
 @pytest.fixture(autouse=True)
 async def db() -> AsyncGenerator:
-    post_db.clear()
-    comment_db.clear()
+    await database.connect()
     yield
+    await database.disconnect()
 
 
 @pytest.fixture()

@@ -44,10 +44,10 @@ comments: list[dict[str, str]] = [
 
 
 async def main() -> None:
-    for i in range(10):
+    for i in range(1, 101):
         async with httpx.AsyncClient() as client:
             await client.post(post_url, json=choice(posts))
-            for j in range(3):
+            for j in range(100):
                 response = await client.post(comment_url, json={**choice(comments), "post_id": i})
                 print(response.json())
 
